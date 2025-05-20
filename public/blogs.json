@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "name": "Smart Home Box",
+    "thumbnail": "https://i.postimg.cc/NFk6kLPB/74f7dc6bffd4ed3a69367a832ed63269.jpg",
+    "banner": "https://example.com/images/smart-home-box-banner.jpg",
+    "frequency": "Yearly",
+    "price": 199.99,
+    "description": "Transform your home into a smart home with curated smart devices, home automation products, and IoT gadgets.",
+    "tech_category": "Smart Home",
+    "features": [
+      "Smart Home Devices",
+      "Home Automation Tools",
+      "Cutting-edge IoT Gadgets"
+    ],
+    "subscription_benefits": [
+      "Discount on Future Smart Home Purchases",
+      "Exclusive Smart Home Tutorials",
+      "Early Access to Product Releases"
+    ],
+    "ratings": 4.8,
+    "number_of_reviews": 315
+  },
+  {
+    "id": 2,
+    "name": "Fitness Pro Box",
+    "thumbnail": "https://i.postimg.cc/44QVM7BT/d6ecfc346f6e84504fb2d16fdb5faf48.jpg",
+    "banner": "https://example.com/images/fitness-pro-box-banner.jpg",
+    "frequency": "Monthly",
+    "price": 49.99,
+    "description": "Stay fit and healthy with premium fitness gear, nutritional snacks, and workout guides delivered monthly.",
+    "tech_category": "Fitness",
+    "features": [
+      "Workout Equipment",
+      "Nutrition Packs",
+      "Exclusive Fitness Guides"
+    ],
+    "subscription_benefits": [
+      "Access to Virtual Fitness Classes",
+      "Monthly Fitness Challenges",
+      "Early Access to New Fitness Products"
+    ],
+    "ratings": 4.6,
+    "number_of_reviews": 228
+  },
+  {
+    "id": 3,
+    "name": "Gourmet Chef Box",
+    "thumbnail": "https://i.postimg.cc/fT6zf5mW/d7401a16b78913bbee89fd71e3cf16f6.jpg",
+    "banner": "https://example.com/images/gourmet-chef-box-banner.jpg",
+    "frequency": "Quarterly",
+    "price": 89.99,
+    "description": "Cook like a pro with gourmet ingredients, recipes from top chefs, and exclusive kitchen tools.",
+    "tech_category": "Culinary",
+    "features": [
+      "Gourmet Ingredients",
+      "Chef-curated Recipes",
+      "Premium Kitchen Tools"
+    ],
+    "subscription_benefits": [
+      "Access to Online Cooking Classes",
+      "Chef Q&A Sessions",
+      "Member-Only Culinary Events"
+    ],
+    "ratings": 4.9,
+    "number_of_reviews": 412
+  },
+  {
+    "id": 4,
+    "name": "Tech Explorer Box",
+    "thumbnail": "https://i.postimg.cc/mg2vMH6Z/bf6d2de66cac5a33ca697e2bbcbf4bdd.jpg",
+    "banner": "https://example.com/images/tech-explorer-box-banner.jpg",
+    "frequency": "Bi-Annual",
+    "price": 149.99,
+    "description": "Explore new technology trends and get hands-on with the latest gadgets and innovations every six months.",
+    "tech_category": "Technology",
+    "features": [
+      "Latest Tech Gadgets",
+      "Experimental Devices",
+      "Innovative Prototypes"
+    ],
+    "subscription_benefits": [
+      "Beta Access to New Products",
+      "Tech Innovation Reports",
+      "Private Webinar Invites"
+    ],
+    "ratings": 4.7,
+    "number_of_reviews": 189
+  },
+  {
+    "id": 5,
+    "name": "Eco Living Box",
+    "thumbnail": "https://i.postimg.cc/mkmwGt3V/6119383695339ff03d48d468a666e514.jpg",
+    "banner": "https://example.com/images/eco-living-box-banner.jpg",
+    "frequency": "Monthly",
+    "price": 39.99,
+    "description": "Live sustainably with eco-friendly household products, zero-waste tools, and green living guides.",
+    "tech_category": "Sustainability",
+    "features": [
+      "Eco-friendly Products",
+      "Zero-Waste Essentials",
+      "Green Living Tips"
+    ],
+    "subscription_benefits": [
+      "Exclusive Eco Webinars",
+      "Carbon Offset Contributions",
+      "Early Access to Green Products"
+    ],
+    "ratings": 4.5,
+    "number_of_reviews": 162
+  },
+  {
+    "id": 6,
+    "name": "Creative Art Box",
+    "thumbnail": "https://i.postimg.cc/VLNgWW1h/1605c044e18d0499edb57b0721c109d2.jpg",
+    "banner": "https://example.com/images/creative-art-box-banner.jpg",
+    "frequency": "Monthly",
+    "price": 59.99,
+    "description": "Unleash your creativity with premium art supplies, project ideas, and tutorials from professional artists.",
+    "tech_category": "Art & Design",
+    "features": [
+      "High-Quality Art Supplies",
+      "Step-by-step Projects",
+      "Artist Collaboration Kits"
+    ],
+    "subscription_benefits": [
+      "Access to Artist Webinars",
+      "Community Art Challenges",
+      "Discounts on Art Tools"
+    ],
+    "ratings": 4.9,
+    "number_of_reviews": 274
+  }
+]
