@@ -8,8 +8,8 @@ import 'swiper/css/navigation';
 
 const Banner = () => {
   const backgroundImages = [
-    'https://i.ibb.co.com/TqT9MzgL/7a9e66a7e26755f6eb9ae572fbc995b4.jpg',
-    'https://i.postimg.cc/BZP4rYLH/d8227df507dd423147984582169e2220.jpg', 
+    'https://i.postimg.cc/fW0zkGd9/3c056902329c20dbf6d7b6397fa9b8bb.jpg',
+    'https://i.postimg.cc/hGNM2QtM/bc0ab5dc3c52b40ddfa075388375703c.jpg', 
     'https://i.postimg.cc/kXrqqQKZ/5992cf620a9fea4eae67708d147c50ce.jpg', 
   ];
 
@@ -24,7 +24,7 @@ const Banner = () => {
       }}
       pagination={{ clickable: true }}
       navigation
-      className="min-h-screen"
+      className="min-h-screen min-w-full"
     >
       {backgroundImages.map((image, index) => (
         <SwiperSlide key={index}>
@@ -40,10 +40,10 @@ const Banner = () => {
             <div className="hero-content text-neutral-content text-center">
               <div>
                 <h1 className="mb-5 text-5xl font-bold">
-                  <span className="text-blue-600">HappyFamily </span> Subscriptions
+                  <span className="text-blue-600">HobbyHub </span> Subscriptions
                 </h1>
                 <p className="mb-4 text-lg font-bold">
-                  New: Monthly Shaving Boxes Subscriptions on Sale
+                The Most Complete Social Network is Here!
                 </p>
                 <div className="pl-36 mb-2">
                   <p className="flex items-center space-x-2 text-white mb-2">
@@ -74,7 +74,7 @@ const Banner = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span>World-Class Shaving Products</span>
+                    <span>Award-Winning Group Community                    </span>
                   </p>
                 </div>
                 <button className="btn btn-primary mt-4">Subscribe Now</button>
