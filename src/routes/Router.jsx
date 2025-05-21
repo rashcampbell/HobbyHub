@@ -8,6 +8,9 @@ import SubscriptionServices from '../Components/SubscriptionServices';
 import SubscriptionServiceDetails from '../Components/SubscriptionServiceDetails';
 import ErrorPage from '../pages/ErrorPage';
 import Profile from '../pages/Profile';
+import CreateGroup from '../pages/CreateGroup';
+import MyGroup from '../pages/MyGroup';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: 'services/:id',
         element: <SubscriptionServiceDetails />,
+      },
+      {
+        path: 'create-group',
+        element: <PrivateRoute element={<CreateGroup />} />,
+      },
+      {
+        path: 'my-group',
+        element: <PrivateRoute element={<MyGroup />} />,
       },
     ],
   },
