@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../provider/MyProvider';
 import Swal from 'sweetalert2';
 import { Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Add axios for API calls
 
 const CreateGroup = () => {
   const { user, loading } = useContext(AuthContext);
@@ -37,7 +38,7 @@ const CreateGroup = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Validate required fields
     if (
@@ -62,30 +63,37 @@ const CreateGroup = () => {
     // Prepare group data
     const groupData = {
       ...formData,
+      maxMembers: parseInt(formData.maxMembers), // Convert to number
       userName: user?.displayName || 'Anonymous',
       userEmail: user?.email || 'N/A',
       createdAt: new Date().toISOString(),
     };
 
-    // Log to console (replace with your backend API call or local storage logic)
-    console.log('New Group Data:', groupData);
-
-    // Show success message
-    Swal.fire('Success', 'Group created successfully!', 'success');
-
-    // Reset form
-    setFormData({
-      groupName: '',
-      hobbyCategory: '',
-      description: '',
-      meetingLocation: '',
-      maxMembers: '',
-      startDate: '',
-      imageUrl: '',
-    });
-
-    // Navigate to My Group page
-    navigate('/my-group');
+    try {
+      // Send data to backend
+      const response = await axios.post('http://localhost:3000/groups', groupData);
+      if (response.data.success) {
+        // Show success message
+        Swal.fire('Success', 'Group created successfully!', 'success');
+        // Reset form
+        setFormData({
+          groupName: '',
+          hobbyCategory: '',
+          description: '',
+          meetingLocation: '',
+          maxMembers: '',
+          startDate: '',
+          imageUrl: '',
+        });
+        // Navigate to My Group page
+        navigate('/my-group');
+      } else {
+        Swal.fire('Error', response.data.message || 'Failed to create group', 'error');
+      }
+    } catch (error) {
+      console.error('Error creating group:', error);
+      Swal.fire('Error', 'Failed to create group. Please try again.', 'error');
+    }
   };
 
   // Show loading state if auth is still loading
