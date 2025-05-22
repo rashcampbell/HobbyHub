@@ -161,7 +161,7 @@ const AllGroupDetails = () => {
           <button
             onClick={handleJoinGroup}
             className={`px-4 py-2 rounded-md text-white ${
-              hasJoined ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'
+              hasJoined ? 'bg-gray-400 cursor-not-allowed' : 'btn btn-success'
             }`}
             disabled={hasJoined}
           >
@@ -170,7 +170,7 @@ const AllGroupDetails = () => {
           {hasJoined && (
             <button
               onClick={handleLeaveGroup}
-              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+              className="btn btn-active btn-error"
             >
               Leave Now Group
             </button>
@@ -184,7 +184,7 @@ const AllGroupDetails = () => {
 
       <div className="mb-8">
         <Link to="/">
-          <button className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 mb-4">
+          <button className="btn btn-info mb-4">
             Back to Home
           </button>
         </Link>
@@ -208,7 +208,7 @@ const AllGroupDetails = () => {
           )}
           <button
             onClick={handleFeedbackSubmit}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+            className="btn btn-active btn-primary"
           >
             Submit Feedback
           </button>
