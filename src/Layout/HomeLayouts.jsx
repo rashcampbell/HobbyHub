@@ -1,5 +1,6 @@
+// src/Layout/HomeLayouts.jsx
 import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigation } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Banner from '../Components/Banner';
 import Features from '../Components/Features';
@@ -7,13 +8,17 @@ import Faq from '../Components/Faq';
 import Footer from '../Components/Footer';
 import Benifit from '../Components/Benifit';
 import AllGroup from '../Components/AllGroup';
+import LoadingSpinner from '../Components/LoadingSpinner';
 
 const HomeLayouts = () => {
   const location = useLocation();
+  const navigation = useNavigation();
   const isServiceDetailsPage = location.pathname.startsWith('/services/');
 
   return (
-    <div>
+    <div className="relative">
+      {/* Show spinner when navigation state is 'loading' */}
+      {navigation.state === 'loading' && <LoadingSpinner />}
       <header>
         <Navbar />
       </header>
