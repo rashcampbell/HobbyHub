@@ -4,14 +4,14 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import AuthLayout from '../Layout/AuthLayout';
 import Terms from '../pages/Terms';
-import SubscriptionServices from '../Components/SubscriptionServices';
-import SubscriptionServiceDetails from '../Components/SubscriptionServiceDetails';
+import AllGroupDetails from '../Components/AllGroupDetails';
 import ErrorPage from '../pages/ErrorPage';
 import Profile from '../pages/Profile';
 import CreateGroup from '../pages/CreateGroup';
 import MyGroup from '../pages/MyGroup';
 import PrivateRoute from './PrivateRoute';
 import UpdateGroup from '../pages/UpdateGroup';
+import AllGroup from '../Components/AllGroup';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <SubscriptionServices />,
+        element: <AllGroup />,
       },
     ],
   },
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'services/:id',
-        element: <SubscriptionServiceDetails />,
+        element: <AllGroupDetails />,
       },
       {
         path: 'create-group',
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'updateGroup/:id',
-        element: <UpdateGroup/>,
+        element: <UpdateGroup />,
       },
     ],
   },
@@ -61,8 +61,8 @@ const router = createBrowserRouter([
   },
   {
     path: '/profile',
-    element: <Profile/>,
-    errorElement: <Profile/>,
+    element: <Profile />,
+    errorElement: <Profile />,
   },
 ]);
 

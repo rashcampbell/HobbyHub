@@ -6,7 +6,7 @@ import Features from '../Components/Features';
 import Faq from '../Components/Faq';
 import Footer from '../Components/Footer';
 import Benifit from '../Components/Benifit';
-import SubscriptionServices from '../Components/SubscriptionServices';
+import SubscriptionServices from '../Components/AllGroup';
 
 const HomeLayouts = () => {
   const location = useLocation();
