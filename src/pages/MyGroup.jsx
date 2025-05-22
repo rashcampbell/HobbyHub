@@ -118,7 +118,7 @@ const MyGroup = () => {
                   <td className="p-3">
                     {new Date(group.startDate).toLocaleDateString()}
                   </td>
-                  <td className="p-3 flex gap-2">
+                  <td className="p-3 flex flex-col gap-2">
                     <button
                       onClick={() => handleUpdate(group._id)}
                       className="btn btn-sm btn-primary bg-blue-600 hover:bg-blue-700 text-white"

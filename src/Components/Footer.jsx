@@ -28,8 +28,8 @@ const Footer = () => {
         <footer className="bg-blue-200 text-gray-700 p-4">
             <div className="flex justify-center mb-2">
                 <NavLink to="/" className="btn btn-ghost text-xl text-blue-600 flex items-center gap-2">
-                    <img src="https://i.ibb.co/8nJ4MTP1/8846fce5fdda3c38201a86d21e6771c9.jpg" alt="logo-icon" className="h-6 w-6 text-blue-600" />
-                    Happy Family
+                    <img src="https://i.postimg.cc/jdZtt4Wk/30bf59fcf30274d7525c91f52464825f.jpg" alt="logo-icon" className="h-6 w-6 text-blue-600" />
+                    HobbyHub
                 </NavLink>
             </div>
             <nav className="flex justify-center gap-6 mb-2">
@@ -38,7 +38,7 @@ const Footer = () => {
                         <NavLink to="/">Home</NavLink>
                     </li>
                     <li className="text-lg hover:text-blue-800 transition">
-                        <a href="#subscription-services" onClick={handleBlogsClick}>Blogs</a>
+                        <a href="#subscription-services" onClick={handleBlogsClick}>All Group</a>
                     </li>
                     <li className="text-lg hover:text-blue-800 transition">
                         <a href="#benifit-section" onClick={handleFeaturesClick}>Features</a>
@@ -55,7 +55,7 @@ const Footer = () => {
                 </ul>
             </nav>
             <aside className="text-center">
-                <p className="text-sm">&copy; {new Date().getFullYear()} Happy Family. All rights reserved.</p>
+                <p className="text-sm">&copy; {new Date().getFullYear()} HobbyHub. All rights reserved.</p>
             </aside>
         </footer>
     );

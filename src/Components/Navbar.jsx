@@ -84,14 +84,26 @@ const Navbar = () => {
         </a>
       </li>
       <li className="text-lg hover:text-blue-800 transition">
-        <a href="#create-group" onClick={handleCreateGroupClick}>
+        <NavLink
+          to="/auth/create-group"
+          onClick={handleCreateGroupClick}
+          className={({ isActive }) =>
+            isActive ? 'text-blue-600 border-b-2 border-blue-600' : ''
+          }
+        >
           Create Group
-        </a>
+        </NavLink>
       </li>
       <li className="text-lg hover:text-blue-800 transition">
-        <a href="#my-group" onClick={handleMyGroupClick}>
+        <NavLink
+          to="/auth/my-group"
+          onClick={handleMyGroupClick}
+          className={({ isActive }) =>
+            isActive ? 'text-blue-600 border-b-2 border-blue-600' : ''
+          }
+        >
           My Group
-        </a>
+        </NavLink>
       </li>
       <li className="text-lg hover:text-blue-800 transition">
         <a href="#benifit-section" onClick={handleFeaturesClick}>
