@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../provider/MyProvider';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const MyGroup = () => {
   const { user, loading } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [groups, setGroups] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -61,9 +62,9 @@ const MyGroup = () => {
     }
   };
 
-  // Handle update (placeholder)
+  // Handle update
   const handleUpdate = (id) => {
-    Swal.fire('Info', 'Update functionality to be implemented', 'info');
+    navigate(`/auth/updateGroup/${id}`);
   };
 
   // Show loading state
@@ -91,7 +92,7 @@ const MyGroup = () => {
                 <th className="p-3 text-center">Image</th>
                 <th className="p-3">Group Name</th>
                 <th className="p-3">Hobby Category</th>
-                {/* <th className="p-3">Description</th> */}
+                <th className="p-3">Description</th>
                 <th className="p-3">Meeting Location</th>
                 <th className="p-3">Max Members</th>
                 <th className="p-3">Start Date</th>
@@ -105,19 +106,19 @@ const MyGroup = () => {
                     <img
                       src={group.imageUrl}
                       alt={group.groupName}
-                      className="w-42 h-42 object-cover rounded"
+                      className="w-24 h-24 object-cover rounded"
                       onError={(e) => { e.target.src = 'https://via.placeholder.com/100'; }}
                     />
                   </td>
                   <td className="p-3">{group.groupName}</td>
                   <td className="p-3">{group.hobbyCategory}</td>
-                  {/* <td className="p-3">{group.description}</td> */}
+                  <td className="p-3">{group.description}</td>
                   <td className="p-3">{group.meetingLocation}</td>
                   <td className="p-3">{group.maxMembers}</td>
                   <td className="p-3">
                     {new Date(group.startDate).toLocaleDateString()}
                   </td>
-                  <td className="p-3 mt-10 flex gap-2">
+                  <td className="p-3 flex gap-2">
                     <button
                       onClick={() => handleUpdate(group._id)}
                       className="btn btn-sm btn-primary bg-blue-600 hover:bg-blue-700 text-white"

@@ -11,6 +11,7 @@ import Profile from '../pages/Profile';
 import CreateGroup from '../pages/CreateGroup';
 import MyGroup from '../pages/MyGroup';
 import PrivateRoute from './PrivateRoute';
+import UpdateGroup from '../pages/UpdateGroup';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: 'my-group',
         element: <MyGroup />,
+      },
+      {
+        path: 'updateGroup/:id',
+        element: <UpdateGroup/>,
       },
     ],
   },
