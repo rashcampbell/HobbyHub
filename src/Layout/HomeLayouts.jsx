@@ -6,7 +6,7 @@ import Features from '../Components/Features';
 import Faq from '../Components/Faq';
 import Footer from '../Components/Footer';
 import Benifit from '../Components/Benifit';
-import SubscriptionServices from '../Components/AllGroup';
+import AllGroup from '../Components/AllGroup';
 
 const HomeLayouts = () => {
   const location = useLocation();
@@ -28,7 +28,7 @@ const HomeLayouts = () => {
               <Benifit />
             </div>
             <div id="subscription-services">
-              <SubscriptionServices />
+              <AllGroup />
             </div>
             <div id="faq-section">
               <Faq />
