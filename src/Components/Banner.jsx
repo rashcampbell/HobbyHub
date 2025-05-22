@@ -40,7 +40,7 @@ const Banner = () => {
             <div className="hero-content text-neutral-content text-center">
               <div>
                 <h1 className="mb-5 text-5xl font-bold">
-                  <span className="text-blue-600">HobbyHub </span> Subscriptions
+                  <span className="text-blue-600">HobbyHub </span> Group Organizer
                 </h1>
                 <p className="mb-4 text-lg font-bold">
                 The Most Complete Social Network is Here!
