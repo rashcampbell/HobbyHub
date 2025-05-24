@@ -15,7 +15,7 @@ const HomeLayouts = () => {
   const isServiceDetailsPage = location.pathname.startsWith('/services/');
 
   return (
-    <div className="relative">
+    <div className="relative bg-base-100">
       {navigation.state === 'loading' && <LoadingSpinner />}
       <header>
         <Navbar />
