@@ -1,6 +1,6 @@
 import React from 'react';
 import Marquee from 'react-fast-marquee';
-import { Typewriter } from 'react-simple-typewriter'; // 🔹 Import here
+import { Typewriter } from 'react-simple-typewriter';
 
 const steps = [
   {

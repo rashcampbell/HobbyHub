@@ -8,7 +8,6 @@ const CreateGroup = () => {
   const { user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Form state
   const [formData, setFormData] = useState({
     groupName: '',
     hobbyCategory: '',
@@ -19,7 +18,6 @@ const CreateGroup = () => {
     imageUrl: '',
   });
 
-  // Hobby categories for dropdown
   const hobbyCategories = [
     'Drawing & Painting',
     'Photography',
@@ -31,16 +29,13 @@ const CreateGroup = () => {
     'Writing',
   ];
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate required fields
     if (
       !formData.groupName ||
       !formData.hobbyCategory ||
@@ -54,13 +49,11 @@ const CreateGroup = () => {
       return;
     }
 
-    // Validate maxMembers is a positive number
     if (isNaN(formData.maxMembers) || formData.maxMembers <= 0) {
       Swal.fire('Error', 'Max Members must be a positive number!', 'error');
       return;
     }
 
-    // Prepare group data
     const groupData = {
       ...formData,
       maxMembers: parseInt(formData.maxMembers),
@@ -70,7 +63,6 @@ const CreateGroup = () => {
     };
 
     try {
-      // Send data to backend
       const response = await axios.post('http://localhost:3000/groups', groupData);
       if (response.data.success) {
         Swal.fire('Success', 'Group created successfully!', 'success');
@@ -97,12 +89,10 @@ const CreateGroup = () => {
     }
   };
 
-  // Show loading state if auth is still loading
   if (loading) {
     return <div className="loading loading-spinner text-primary"></div>;
   }
 
-  // Ensure user is authenticated
   if (!user) {
     return <Navigate to="/auth/login" replace />;
   }
@@ -117,7 +107,6 @@ const CreateGroup = () => {
         className="max-w-4xl mx-auto bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 shadow-lg rounded-lg p-8"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Group Name */}
           <div className="mb-4">
             <label
               className="block text-gray-700 font-medium mb-2"
@@ -137,7 +126,6 @@ const CreateGroup = () => {
             />
           </div>
 
-          {/* Hobby Category */}
           <div className="mb-4">
             <label
               className="block text-gray-700 font-medium mb-2"
@@ -164,7 +152,6 @@ const CreateGroup = () => {
             </select>
           </div>
 
-          {/* Meeting Location */}
           <div className="mb-4">
             <label
               className="block text-gray-700 font-medium mb-2"
@@ -184,7 +171,6 @@ const CreateGroup = () => {
             />
           </div>
 
-          {/* Max Members */}
           <div className="mb-4">
             <label
               className="block text-gray-700 font-medium mb-2"
@@ -205,7 +191,6 @@ const CreateGroup = () => {
             />
           </div>
 
-          {/* Start Date */}
           <div className="mb-4">
             <label
               className="block text-gray-700 font-medium mb-2"
@@ -224,7 +209,6 @@ const CreateGroup = () => {
             />
           </div>
 
-          {/* Image URL */}
           <div className="mb-4">
             <label
               className="block text-gray-700 font-medium mb-2"
@@ -244,7 +228,6 @@ const CreateGroup = () => {
             />
           </div>
 
-          {/* User Name (Read-only) */}
           <div className="mb-4">
             <label
               className="block text-gray-700 font-medium mb-2"
@@ -262,7 +245,6 @@ const CreateGroup = () => {
             />
           </div>
 
-          {/* User Email (Read-only) */}
           <div className="mb-4">
             <label
               className="block text-gray-700 font-medium mb-2"
@@ -281,7 +263,6 @@ const CreateGroup = () => {
           </div>
         </div>
 
-        {/* Description (Full Width) */}
         <div className="mb-6">
           <label
             className="block text-gray-700 font-medium mb-2"
@@ -301,7 +282,6 @@ const CreateGroup = () => {
           ></textarea>
         </div>
 
-        {/* Create Button (Full Width) */}
         <div className="text-center">
           <button
             type="submit"

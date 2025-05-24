@@ -69,7 +69,7 @@ const MyGroup = () => {
 
   // Show loading state
   if (loading || isLoading) {
-    return <div className="loading loading-spinner text-primary"></div>;
+    return <div className="flex justify-center items-center h-screen"><div className="loading loading-spinner text-primary"></div></div>;
   }
 
   // Ensure user is authenticated
@@ -78,59 +78,61 @@ const MyGroup = () => {
   }
 
   return (
-    <div className="container mx-auto py-8 px-4 md:px-8 lg:px-12">
-      <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+    <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-gray-800">
         My Groups
       </h1>
       {groups.length === 0 ? (
         <p className="text-center text-gray-600">No groups found.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table w-full bg-white shadow-lg rounded-lg">
+          <table className="table w-full bg-white shadow-lg rounded-lg min-w-[600px]">
             <thead>
-              <tr className="bg-gray-200 text-gray-700">
-                <th className="p-3 text-center">Image</th>
-                <th className="p-3">Group Name</th>
-                <th className="p-3">Hobby Category</th>
-                <th className="p-3">Description</th>
-                <th className="p-3">Meeting Location</th>
-                <th className="p-3">Max Members</th>
-                <th className="p-3">Start Date</th>
-                <th className="p-3">Actions</th>
+              <tr className="bg-gray-200 text-gray-700 text-xs sm:text-sm">
+                <th className="p-2 sm:p-3 text-center">Image</th>
+                <th className="p-2 sm:p-3">Group Name</th>
+                <th className="p-2 sm:p-3 hidden md:table-cell">Hobby Category</th>
+                <th className="p-2 sm:p-3 hidden lg:table-cell">Description</th>
+                <th className="p-2 sm:p-3 hidden md:table-cell">Meeting Location</th>
+                <th className="p-2 sm:p-3 hidden sm:table-cell">Max Members</th>
+                <th className="p-2 sm:p-3 hidden sm:table-cell">Start Date</th>
+                <th className="p-2 sm:p-3">Actions</th>
               </tr>
             </thead>
             <tbody>
               {groups.map((group) => (
-                <tr key={group._id} className="border-b hover:bg-gray-50">
-                  <td className="p-3">
+                <tr key={group._id} className="border-b hover:bg-gray-50 text-xs sm:text-sm">
+                  <td className="p-2 sm:p-3">
                     <img
                       src={group.imageUrl}
                       alt={group.groupName}
-                      className="w-24 h-24 object-cover rounded"
+                      className="w-16 h-16 sm:w-24 sm:h-24 object-cover rounded mx-auto"
                       onError={(e) => { e.target.src = 'https://via.placeholder.com/100'; }}
                     />
                   </td>
-                  <td className="p-3">{group.groupName}</td>
-                  <td className="p-3">{group.hobbyCategory}</td>
-                  <td className="p-3">{group.description}</td>
-                  <td className="p-3">{group.meetingLocation}</td>
-                  <td className="p-3">{group.maxMembers}</td>
-                  <td className="p-3">
+                  <td className="p-2 sm:p-3">{group.groupName}</td>
+                  <td className="p-2 sm:p-3 hidden md:table-cell">{group.hobbyCategory}</td>
+                  <td className="p-2 sm:p-3 hidden lg:table-cell">{group.description}</td>
+                  <td className="p-2 sm:p-3 hidden md:table-cell">{group.meetingLocation}</td>
+                  <td className="p-2 sm:p-3 hidden sm:table-cell">{group.maxMembers}</td>
+                  <td className="p-2 sm:p-3 hidden sm:table-cell">
                     {new Date(group.startDate).toLocaleDateString()}
                   </td>
-                  <td className="p-3 flex flex-col gap-2">
-                    <button
-                      onClick={() => handleUpdate(group._id)}
-                      className="btn btn-sm btn-primary bg-blue-600 hover:bg-blue-700 text-white"
-                    >
-                      Update
-                    </button>
-                    <button
-                      onClick={() => handleDelete(group._id)}
-                      className="btn btn-sm btn-error bg-red-600 hover:bg-red-700 text-white"
-                    >
-                      Delete
-                    </button>
+                  <td className="p-2 sm:p-3">
+                    <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                      <button
+                        onClick={() => handleUpdate(group._id)}
+                        className="btn btn-xs sm:btn-sm btn-primary bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={() => handleDelete(group._id)}
+                        className="btn btn-xs sm:btn-sm btn-error bg-red-600 hover:bg-red-700 text-white"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

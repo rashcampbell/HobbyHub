@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../provider/MyProvider'; // Import AuthContext
+import { AuthContext } from '../provider/MyProvider';
+import axios from 'axios';
 
 const AllGroupDetails = () => {
   const { id } = useParams();
-  const { user } = useContext(AuthContext); // Access logged-in user from AuthContext
+  const { user } = useContext(AuthContext);
   const [group, setGroup] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,28 +16,49 @@ const AllGroupDetails = () => {
   const [hasJoined, setHasJoined] = useState(false);
 
   useEffect(() => {
-    // Check if the user has already joined this group
     const joinedGroups = JSON.parse(localStorage.getItem('joinedGroups') || '[]');
-    if (joinedGroups.includes(parseInt(id))) {
+    if (joinedGroups.includes(id)) {
       setHasJoined(true);
     }
 
-    fetch('/blogs.json')
-      .then(response => response.json())
-      .then(data => {
-        const selectedGroup = data.find(item => item.id === parseInt(id));
-        if (selectedGroup) {
-          setGroup(selectedGroup);
+    const fetchGroupDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/groups/${id}`);
+        if (response.data.success) {
+          const dbGroup = response.data.data;
+          setGroup({
+            name: dbGroup.groupName,
+            image: dbGroup.imageUrl,
+            category: dbGroup.hobbyCategory,
+            description: dbGroup.description,
+            location: dbGroup.meetingLocation,
+            max_members: dbGroup.maxMembers,
+            start_date: dbGroup.startDate,
+          });
         } else {
           setError('Group not found');
         }
-        setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error loading group details:', error);
         setError('Error loading group details');
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    const fetchFeedbacks = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/feedbacks/${id}`);
+        if (response.data.success) {
+          setFeedbacks(response.data.data);
+        }
+      } catch (error) {
+        console.error('Error loading feedbacks:', error);
+      }
+    };
+
+    fetchGroupDetails();
+    fetchFeedbacks();
   }, [id]);
 
   const handleJoinGroup = () => {
@@ -50,13 +72,11 @@ const AllGroupDetails = () => {
       return;
     }
 
-    // Mark the group as joined
     setHasJoined(true);
     const joinedGroups = JSON.parse(localStorage.getItem('joinedGroups') || '[]');
-    joinedGroups.push(parseInt(id));
+    joinedGroups.push(id);
     localStorage.setItem('joinedGroups', JSON.stringify(joinedGroups));
 
-    // Show success alert
     Swal.fire({
       icon: 'success',
       title: 'Success',
@@ -66,13 +86,11 @@ const AllGroupDetails = () => {
   };
 
   const handleLeaveGroup = () => {
-    // Remove the group from joinedGroups in localStorage
     const joinedGroups = JSON.parse(localStorage.getItem('joinedGroups') || '[]');
-    const updatedGroups = joinedGroups.filter(groupId => groupId !== parseInt(id));
+    const updatedGroups = joinedGroups.filter(groupId => groupId !== id);
     localStorage.setItem('joinedGroups', JSON.stringify(updatedGroups));
     setHasJoined(false);
 
-    // Show success alert for leaving
     Swal.fire({
       icon: 'success',
       title: 'Left Group',
@@ -81,7 +99,7 @@ const AllGroupDetails = () => {
     });
   };
 
-  const handleFeedbackSubmit = () => {
+  const handleFeedbackSubmit = async () => {
     if (!user) {
       Swal.fire({
         icon: 'error',
@@ -97,23 +115,147 @@ const AllGroupDetails = () => {
       return;
     }
 
-    setFeedbacks([
-      ...feedbacks,
-      {
+    try {
+      const response = await axios.post(`http://localhost:3000/feedbacks/${id}`, {
         feedback,
+        userId: user.uid,
         userName: user.displayName || 'Anonymous',
-        userPhoto: user.photoURL || 'https://via.placeholder.com/40', // Fallback image
-        id: Date.now(),
-      },
-    ]);
-    setFeedback('');
-    setFeedbackError('');
-    Swal.fire({
-      icon: 'success',
-      title: 'Feedback Submitted',
-      text: 'Your feedback has been added successfully!',
-      confirmButtonText: 'OK',
+        userPhoto: user.photoURL || 'https://via.placeholder.com/40',
+        groupId: id,
+      });
+
+      if (response.data.success) {
+        setFeedbacks([response.data.data, ...feedbacks]); // Add new feedback at the top
+        setFeedback('');
+        setFeedbackError('');
+        Swal.fire({
+          icon: 'success',
+          title: 'Feedback Submitted',
+          text: 'Your feedback has been added successfully!',
+          confirmButtonText: 'OK',
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to submit feedback.',
+        confirmButtonText: 'OK',
+      });
+    }
+  };
+
+  const handleLikeFeedback = async (feedbackId) => {
+    if (!user) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Not Logged In',
+        text: 'Please log in to like feedback.',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.post(`http://localhost:3000/feedbacks/${feedbackId}/like`, {
+        userId: user.uid,
+      });
+
+      if (response.data.success) {
+        setFeedbacks(
+          feedbacks.map((fb) =>
+            fb._id === feedbackId
+              ? { ...fb, likes: response.data.data.likes, likedBy: response.data.data.likedBy }
+              : fb
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error liking feedback:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to like feedback.',
+        confirmButtonText: 'OK',
+      });
+    }
+  };
+
+  const handleUpdateFeedback = async (feedbackId, currentFeedback) => {
+    const { value: updatedFeedback } = await Swal.fire({
+      title: 'Update Feedback',
+      input: 'textarea',
+      inputLabel: 'Your Feedback',
+      inputValue: currentFeedback,
+      showCancelButton: true,
+      confirmButtonText: 'Update',
+      cancelButtonText: 'Cancel',
     });
+
+    if (updatedFeedback && updatedFeedback.trim()) {
+      try {
+        const response = await axios.patch(`http://localhost:3000/feedbacks/${feedbackId}`, {
+          feedback: updatedFeedback,
+        });
+
+        if (response.data.success) {
+          setFeedbacks(
+            feedbacks.map((fb) =>
+              fb._id === feedbackId ? { ...fb, feedback: updatedFeedback } : fb
+            )
+          );
+          Swal.fire({
+            icon: 'success',
+            title: 'Feedback Updated',
+            text: 'Your feedback has been updated successfully!',
+            confirmButtonText: 'OK',
+          });
+        }
+      } catch (error) {
+        console.error('Error updating feedback:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to update feedback.',
+          confirmButtonText: 'OK',
+        });
+      }
+    }
+  };
+
+  const handleDeleteFeedback = async (feedbackId) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to delete this feedback?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel',
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.delete(`http://localhost:3000/feedbacks/${feedbackId}`);
+        if (response.data.success) {
+          setFeedbacks(feedbacks.filter((fb) => fb._id !== feedbackId));
+          Swal.fire({
+            icon: 'success',
+            title: 'Feedback Deleted',
+            text: 'Your feedback has been deleted successfully!',
+            confirmButtonText: 'OK',
+          });
+        }
+      } catch (error) {
+        console.error('Error deleting feedback:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to delete feedback.',
+          confirmButtonText: 'OK',
+        });
+      }
+    }
   };
 
   const isGroupActive = () => {
@@ -155,7 +297,6 @@ const AllGroupDetails = () => {
         <strong>Start Date:</strong> {group.start_date}
       </p>
 
-      {/* Join Button or Inactive Message */}
       {isGroupActive() ? (
         <div className="mb-8 flex space-x-4">
           <button
@@ -172,7 +313,7 @@ const AllGroupDetails = () => {
               onClick={handleLeaveGroup}
               className="btn btn-active btn-error"
             >
-              Leave Now Group
+              Leave Group
             </button>
           )}
         </div>
@@ -184,9 +325,7 @@ const AllGroupDetails = () => {
 
       <div className="mb-8">
         <Link to="/">
-          <button className="btn btn-info mb-4">
-            Back to Home
-          </button>
+          <button className="btn btn-info mb-4">Back to Home</button>
         </Link>
         <h3 className="text-xl font-semibold mb-4">Add Your Feedback</h3>
         <div className="space-y-4">
@@ -222,15 +361,51 @@ const AllGroupDetails = () => {
         ) : (
           <ul className="space-y-4">
             {feedbacks.map((fb) => (
-              <li key={fb.id} className="border-b pb-4 flex items-start space-x-4">
+              <li key={fb._id} className="border-b pb-4 flex items-start space-x-4 relative">
                 <img
                   src={fb.userPhoto}
                   alt={fb.userName}
                   className="w-10 h-10 rounded-full object-cover"
                 />
-                <div>
-                  <p className="text-gray-800 font-semibold">{fb.userName}</p>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <p className="text-gray-800 font-semibold">{fb.userName}</p>
+                    {user && user.uid === fb.userId && (
+                      <div className="relative group">
+                        <button className="text-gray-500 hover:text-gray-700">
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01"></path>
+                          </svg>
+                        </button>
+                        <div className="absolute right-0  w-32 bg-white border rounded-md shadow-lg hidden group-hover:block">
+                          <button
+                            onClick={() => handleUpdateFeedback(fb._id, fb.feedback)}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            Update
+                          </button>
+                          <button
+                            onClick={() => handleDeleteFeedback(fb._id)}
+                            className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   <p className="text-gray-600">{fb.feedback}</p>
+                  <div className="mt-2 flex items-center">
+                    <button
+                      onClick={() => handleLikeFeedback(fb._id)}
+                      className={`text-sm mr-2 ${
+                        fb.likedBy?.includes(user?.uid) ? 'text-blue-600' : 'text-gray-600'
+                      }`}
+                    >
+                      Like
+                    </button>
+                    <span className="text-sm text-gray-500">{fb.likes || 0} Likes</span>
+                  </div>
                 </div>
               </li>
             ))}

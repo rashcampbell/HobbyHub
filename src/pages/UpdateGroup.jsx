@@ -9,7 +9,6 @@ const UpdateGroup = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Form state
   const [formData, setFormData] = useState({
     groupName: '',
     hobbyCategory: '',
@@ -23,7 +22,6 @@ const UpdateGroup = () => {
   const [isFormChanged, setIsFormChanged] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Hobby categories for dropdown
   const hobbyCategories = [
     'Drawing & Painting',
     'Photography',
@@ -35,7 +33,6 @@ const UpdateGroup = () => {
     'Writing',
   ];
 
-  // Fetch group data
   useEffect(() => {
     const fetchGroup = async () => {
       try {
@@ -73,11 +70,9 @@ const UpdateGroup = () => {
     if (user) fetchGroup();
   }, [user, id, navigate]);
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Check if form has changed
     const updatedData = { ...formData, [name]: value };
     const hasChanged = Object.keys(updatedData).some(
       (key) => updatedData[key] !== originalData[key]
@@ -85,10 +80,8 @@ const UpdateGroup = () => {
     setIsFormChanged(hasChanged);
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate required fields
     if (
       !formData.groupName ||
       !formData.hobbyCategory ||
@@ -102,13 +95,11 @@ const UpdateGroup = () => {
       return;
     }
 
-    // Validate maxMembers is a positive number
     if (isNaN(formData.maxMembers) || formData.maxMembers <= 0) {
       Swal.fire('Error', 'Max Members must be a positive number!', 'error');
       return;
     }
 
-    // Prepare group data
     const groupData = {
       ...formData,
       maxMembers: parseInt(formData.maxMembers),
@@ -141,12 +132,10 @@ const UpdateGroup = () => {
     }
   };
 
-  // Show loading state
   if (loading || isLoading) {
     return <div className="loading loading-spinner text-primary"></div>;
   }
 
-  // Ensure user is authenticated
   if (!user) {
     return <Navigate to="/auth/login" replace />;
   }
@@ -161,7 +150,6 @@ const UpdateGroup = () => {
         className="max-w-4xl mx-auto bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 shadow-lg rounded-lg p-8"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Group Name */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="groupName">
               Group Name
@@ -178,7 +166,6 @@ const UpdateGroup = () => {
             />
           </div>
 
-          {/* Hobby Category */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="hobbyCategory">
               Hobby Category
@@ -202,7 +189,6 @@ const UpdateGroup = () => {
             </select>
           </div>
 
-          {/* Meeting Location */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="meetingLocation">
               Meeting Location
@@ -219,7 +205,6 @@ const UpdateGroup = () => {
             />
           </div>
 
-          {/* Max Members */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="maxMembers">
               Max Members
@@ -237,7 +222,6 @@ const UpdateGroup = () => {
             />
           </div>
 
-          {/* Start Date */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="startDate">
               Start Date
@@ -253,7 +237,6 @@ const UpdateGroup = () => {
             />
           </div>
 
-          {/* Image URL */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="imageUrl">
               Image URL
@@ -270,7 +253,6 @@ const UpdateGroup = () => {
             />
           </div>
 
-          {/* User Name (Read-only) */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="userName">
               User Name
@@ -285,7 +267,6 @@ const UpdateGroup = () => {
             />
           </div>
 
-          {/* User Email (Read-only) */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="userEmail">
               User Email
@@ -318,7 +299,6 @@ const UpdateGroup = () => {
           ></textarea>
         </div>
 
-        {/* Update Button (Full Width) */}
         <div className="text-center">
           <button
             type="submit"

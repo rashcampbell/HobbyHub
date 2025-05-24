@@ -1,4 +1,3 @@
-// src/Layout/HomeLayouts.jsx
 import React from 'react';
 import { Outlet, useLocation, useNavigation } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
@@ -17,7 +16,6 @@ const HomeLayouts = () => {
 
   return (
     <div className="relative">
-      {/* Show spinner when navigation state is 'loading' */}
       {navigation.state === 'loading' && <LoadingSpinner />}
       <header>
         <Navbar />
