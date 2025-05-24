@@ -63,7 +63,7 @@ const CreateGroup = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/groups', groupData);
+      const response = await axios.post('https://assignment-ten-server-olive.vercel.app/groups', groupData);
       if (response.data.success) {
         Swal.fire('Success', 'Group created successfully!', 'success');
         setFormData({

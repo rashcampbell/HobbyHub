@@ -15,7 +15,7 @@ const MyGroup = () => {
     if (user) {
       const fetchGroups = async () => {
         try {
-          const response = await axios.get('http://localhost:3000/groups', {
+          const response = await axios.get('https://assignment-ten-server-olive.vercel.app/groups', {
             params: { email: user.email }
           });
           if (response.data.success) {
@@ -48,7 +48,7 @@ const MyGroup = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await axios.delete(`http://localhost:3000/groups/${id}`);
+        const response = await axios.delete(`https://assignment-ten-server-olive.vercel.app/groups/${id}`);
         if (response.data.success) {
           setGroups(groups.filter(group => group._id !== id));
           Swal.fire('Deleted!', 'Group has been deleted.', 'success');

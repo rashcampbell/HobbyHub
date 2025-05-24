@@ -36,7 +36,7 @@ const UpdateGroup = () => {
   useEffect(() => {
     const fetchGroup = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/groups', {
+        const response = await axios.get('https://assignment-ten-server-olive.vercel.app/groups', {
           params: { email: user.email },
         });
         if (response.data.success) {
@@ -106,7 +106,7 @@ const UpdateGroup = () => {
     };
 
     try {
-      const response = await axios.patch(`http://localhost:3000/groups/${id}`, groupData);
+      const response = await axios.patch(`https://assignment-ten-server-olive.vercel.app/groups/${id}`, groupData);
       if (response.data.success) {
         Swal.fire({
           title: 'Success',
@@ -303,9 +303,8 @@ const UpdateGroup = () => {
           <button
             type="submit"
             disabled={!isFormChanged}
-            className={`btn btn-primary w-full md:w-1/2 px-6 py-3 text-white rounded-md transition-colors duration-300 ${
-              isFormChanged ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'
-            }`}
+            className={`btn btn-primary w-full md:w-1/2 px-6 py-3 text-white rounded-md transition-colors duration-300 ${isFormChanged ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'
+              }`}
           >
             Update Now
           </button>

@@ -23,7 +23,7 @@ const AllGroupDetails = () => {
 
     const fetchGroupDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/groups/${id}`);
+        const response = await axios.get(`https://assignment-ten-server-olive.vercel.app/groups/${id}`);
         if (response.data.success) {
           const dbGroup = response.data.data;
           setGroup({
@@ -48,7 +48,7 @@ const AllGroupDetails = () => {
 
     const fetchFeedbacks = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/feedbacks/${id}`);
+        const response = await axios.get(`https://assignment-ten-server-olive.vercel.app/feedbacks/${id}`);
         if (response.data.success) {
           setFeedbacks(response.data.data);
         }
@@ -116,7 +116,7 @@ const AllGroupDetails = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:3000/feedbacks/${id}`, {
+      const response = await axios.post(`https://assignment-ten-server-olive.vercel.app/feedbacks/${id}`, {
         feedback,
         userId: user.uid,
         userName: user.displayName || 'Anonymous',
@@ -158,7 +158,7 @@ const AllGroupDetails = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:3000/feedbacks/${feedbackId}/like`, {
+      const response = await axios.post(`https://assignment-ten-server-olive.vercel.app/feedbacks/${feedbackId}/like`, {
         userId: user.uid,
       });
 
@@ -195,7 +195,7 @@ const AllGroupDetails = () => {
 
     if (updatedFeedback && updatedFeedback.trim()) {
       try {
-        const response = await axios.patch(`http://localhost:3000/feedbacks/${feedbackId}`, {
+        const response = await axios.patch(`https://assignment-ten-server-olive.vercel.app/feedbacks/${feedbackId}`, {
           feedback: updatedFeedback,
         });
 
@@ -236,7 +236,7 @@ const AllGroupDetails = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await axios.delete(`http://localhost:3000/feedbacks/${feedbackId}`);
+        const response = await axios.delete(`https://assignment-ten-server-olive.vercel.app/feedbacks/${feedbackId}`);
         if (response.data.success) {
           setFeedbacks(feedbacks.filter((fb) => fb._id !== feedbackId));
           Swal.fire({
@@ -301,9 +301,8 @@ const AllGroupDetails = () => {
         <div className="mb-8 flex space-x-4">
           <button
             onClick={handleJoinGroup}
-            className={`px-4 py-2 rounded-md text-white ${
-              hasJoined ? 'bg-gray-400 cursor-not-allowed' : 'btn btn-success'
-            }`}
+            className={`px-4 py-2 rounded-md text-white ${hasJoined ? 'bg-gray-400 cursor-not-allowed' : 'btn btn-success'
+              }`}
             disabled={hasJoined}
           >
             {hasJoined ? 'Already Joined' : 'Join Group'}
@@ -398,9 +397,8 @@ const AllGroupDetails = () => {
                   <div className="mt-2 flex items-center">
                     <button
                       onClick={() => handleLikeFeedback(fb._id)}
-                      className={`text-sm mr-2 ${
-                        fb.likedBy?.includes(user?.uid) ? 'text-blue-600' : 'text-gray-600'
-                      }`}
+                      className={`text-sm mr-2 ${fb.likedBy?.includes(user?.uid) ? 'text-blue-600' : 'text-gray-600'
+                        }`}
                     >
                       Like
                     </button>

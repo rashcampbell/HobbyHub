@@ -12,7 +12,7 @@ const AllGroup = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/groups');
+        const response = await axios.get('https://assignment-ten-server-olive.vercel.app/groups');
         if (response.data.success) {
           setGroupsData(response.data.data);
         } else {
