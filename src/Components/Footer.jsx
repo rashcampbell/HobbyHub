@@ -27,8 +27,8 @@ const Footer = () => {
     return (
         <footer className="bg-blue-200 text-gray-700 p-4 sm:p-6">
             <div className="flex flex-col items-center mb-4">
-                <NavLink to="/" className="btn btn-ghost text-lg sm:text-xl text-blue-600 flex items-center gap-2 mb-4 sm:mb-2">
-                    <img src="https://i.postimg.cc/jdZtt4Wk/30bf59fcf30274d7525c91f52464825f.jpg" alt="logo-icon" className="h-6 w-6" />
+                <NavLink to="/" className="btn-ghost text-lg sm:text-xl text-blue-600 flex items-center mb-4 sm:mb-2">
+                    <img src="https://i.postimg.cc/6qK6GcjC/b6028b7bb5448840e9c9b2a39d7992c3-removebg-preview.png" alt="logo-icon" className="h-10 w-10" />
                     HobbyHub
                 </NavLink>
                 <nav className="w-full">
