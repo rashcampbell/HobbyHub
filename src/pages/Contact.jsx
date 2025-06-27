@@ -1,98 +1,198 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const ContactForm = () => {
+const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
-    message: '',
+    request: ''
   });
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [id]: value }));
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isValid = formData.name && formData.email && formData.subject && formData.message;
 
-    if (isValid) {
+    if (
+      formData.name.trim() === '' ||
+      formData.email.trim() === '' ||
+      formData.phone.trim() === '' ||
+      formData.subject === '' ||
+      formData.request.trim() === ''
+    ) {
       Swal.fire({
-        title: 'Success!',
-        text: 'Your message has been sent.',
-        icon: 'success',
-        confirmButtonText: 'OK',
+        icon: 'error',
+        title: 'Missing Information',
+        text: 'Please fill out all required fields.',
+        confirmButtonColor: '#22c55e'
       });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+    } else if (!validateEmail(formData.email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Email',
+        text: 'Please enter a valid email address.',
+        confirmButtonColor: '#22c55e'
+      });
     } else {
       Swal.fire({
-        title: 'Error!',
-        text: 'Please fill out all fields.',
-        icon: 'error',
-        confirmButtonText: 'OK',
+        icon: 'success',
+        title: 'Request Submitted',
+        text: 'Thank you! Your request has been submitted successfully.',
+        confirmButtonColor: '#22c55e'
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        request: ''
       });
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-10 py-10 sm:px-6 lg:px-12">
-      <div className="flex flex-col w-full mx-auto p-10 overflow-hidden sm:flex-row">
-        {/* Left Side - Description Section */}
-        <div className="p-6 sm:p-8 lg:p-10  w-full sm:w-1/2 flex flex-col justify-center">
-          <h1 className="text-3xl sm:text-3xl font-bold mt-2 ">Get in Touch</h1>
-          <p className="mt-4 text-sm sm:text-base">
-            Have questions or need support? Feel free to reach out to us anytime—we're here to help you.
-Let's connect and make your experience even better!.
-          </p>
-        </div>
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-10">
+          Contact Us
+        </h2>
+        <div className="flex flex-col lg:flex-row gap-12 bg-white shadow-lg rounded-lg p-8">
+          <div className="flex-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="name" className="block text-base font-medium text-black mb-1">
+                  Your Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Enter your name"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-black placeholder-gray-400"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-base font-medium text-black mb-1">
+                  Your Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-black placeholder-gray-400"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="phone" className="block text-base font-medium text-black mb-1">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  placeholder="Enter your phone number"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-black placeholder-gray-400"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="subject" className="block text-base font-medium text-black mb-1">
+                  Subject *
+                </label>
+                <select
+                  name="subject"
+                  id="subject"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-black"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>Select a subject</option>
+                  <option value="Drawing & Painting">Drawing & Painting</option>
+                  <option value="PhotographySales">Photography Sales</option>
+                  <option value="Fishing">Fishing</option>
+                  <option value="Videos Gaming">Video Gaming</option>
+                  <option value="Running">Running</option>
+                </select>
+              </div>
+            </div>
+            <div className="mt-6">
+              <label htmlFor="request" className="block text-base font-medium text-black mb-1">
+                Your Request *
+              </label>
+              <textarea
+                name="request"
+                id="request"
+                placeholder="Describe your request"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition h-40 resize-none text-black placeholder-gray-400"
+                value={formData.request}
+                onChange={handleChange}
+                required
+              ></textarea>
+            </div>
+            <div className="mt-6">
+              <button
+                type="button"
+                className="w-full md:w-auto px-6 py-3 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition"
+                onClick={handleSubmit}
+              >
+                Submit Request
+              </button>
+            </div>
+          </div>
 
-        {/* Right Side - Form Section */}
-        <div className="p-6 sm:p-8 lg:p-10 w-full sm:w-1/2">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              id="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="email"
-              id="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Your Email"
-              className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="text"
-              id="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              placeholder="Your Subject"
-              className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <textarea
-              id="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Your Message"
-              className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-400 text-sm sm:text-base h-32 sm:h-36 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base font-medium"
-            >
-              Send Message
-            </button>
-          </form>
+          <div className="w-full lg:w-1/3 space-y-8 bg-gray-50 p-6 rounded-lg shadow-inner">
+            <div>
+              <h3 className="text-xl font-bold text-black mb-4">Our Headquarters</h3>
+              <p className="text-base font-medium text-black">
+                <span className="font-semibold">Dhaka:</span> St. Cesar Calling Roma
+              </p>
+              <p className="text-base font-medium text-black">
+                <span className="font-semibold">Rajshahi:</span> St. Diamond Calling Brussels
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-black mb-4">Reach Us 24/7</h3>
+              <p className="text-base font-medium text-black">
+                <span className="font-semibold">Dhaka:</span> +880-1821-023369
+              </p>
+              <p className="text-base font-medium text-black">
+                <span className="font-semibold">Rajshahi:</span> +880-162-2258409
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-black mb-4">Email Us</h3>
+              <p className="text-base font-medium text-black">
+                <span className="font-semibold">Sales:</span> posterboy52@gmail.com
+              </p>
+              <p className="text-base font-medium text-black">
+                <span className="font-semibold">Customers:</span> posterboy520807@gmail.com
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default ContactForm;
+export default Contact;
