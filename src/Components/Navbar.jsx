@@ -73,14 +73,9 @@ const Navbar = () => {
     ...(user
       ? [
           {
-            to: '/auth/create-group',
-            text: 'Create Group',
-            onClick: (e) => handleAuthClick(e, '/auth/create-group', 'create a group', 'Create Group'),
-          },
-          {
-            to: '/auth/my-group',
-            text: 'My Group',
-            onClick: (e) => handleAuthClick(e, '/auth/my-group', 'view your groups', 'My Group'),
+            to: '/auth/dashboard',
+            text: 'Dashboard',
+            onClick: (e) => handleAuthClick(e, '/auth/dashboard', 'access the dashboard', 'Dashboard'),
           },
         ]
       : []),

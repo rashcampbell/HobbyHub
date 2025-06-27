@@ -12,6 +12,7 @@ import MyGroup from '../pages/MyGroup';
 import PrivateRoute from './PrivateRoute';
 import UpdateGroup from '../pages/UpdateGroup';
 import AllGroup from '../Components/AllGroup';
+import Dashboard from '../Components/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
         path: 'updateGroup/:id',
         element: <UpdateGroup />,
       },
+      {
+        path: 'dashboard',
+        element: <Dashboard/>,
+      },
     ],
   },
   {
@@ -62,7 +67,7 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <Profile />,
-    errorElement: <Profile />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
