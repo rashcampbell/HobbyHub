@@ -24,12 +24,12 @@ const Banner = () => {
       }}
       pagination={{ clickable: true }}
       navigation
-      className="min-h-screen min-w-full"
+      className="h-[60vh] w-full" // Set height to 60% of viewport height
     >
       {backgroundImages.map((image, index) => (
         <SwiperSlide key={index}>
           <div
-            className="hero min-h-screen"
+            className="hero h-[60vh] w-full" // Consistent height and width for each slide
             style={{
               backgroundImage: `url(${image})`,
               backgroundSize: 'cover',
@@ -43,7 +43,7 @@ const Banner = () => {
                   <span className="text-blue-600">HobbyHub </span> Group Organizer
                 </h1>
                 <p className="mb-4 text-lg font-bold">
-                The Most Complete Social Network is Here!
+                  The Most Complete Social Network is Here!
                 </p>
                 <div className="pl-36 mb-2">
                   <p className="flex items-center space-x-2 text-white mb-2">
@@ -74,7 +74,7 @@ const Banner = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span>Award-Winning Group Community                    </span>
+                    <span>Award-Winning Group Community</span>
                   </p>
                 </div>
                 <button className="btn btn-primary mt-4">Subscribe Now</button>

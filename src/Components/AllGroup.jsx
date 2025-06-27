@@ -48,27 +48,34 @@ const AllGroup = () => {
     <div className="p-20">
       <p className="text-4xl text-center font-bold mb-4">Featured Groups Section</p>
       <p className="text-xl text-center mb-8">Join your favorite group</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto p-2">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 h-auto p-2">
         {groupsData.map((group) => (
-          <div key={group._id} className="bg-white shadow-lg rounded-lg p-6 w-full">
+          <div
+            key={group._id}
+            className="bg-white shadow-lg rounded-lg p-6 w-full flex flex-col h-[450px]" // Set fixed height and flex column
+          >
             <img
               src={group.imageUrl}
               alt={group.groupName}
-              className="w-full h-58 object-cover rounded-lg mb-2"
+              className="w-full h-48 object-cover rounded-lg mb-2" // Fixed image height
             />
-            <h3 className="text-lg font-bold mb-2 hover:text-blue-600 transition-colors duration-200">
+            <h3 className="text-lg text-black font-bold mb-2 hover:text-blue-600 transition-colors duration-200">
               {group.groupName}
             </h3>
             <p className="text-gray-500 mb-1">{group.hobbyCategory}</p>
             <p className="text-sm text-gray-500 mb-1">Location: {group.meetingLocation}</p>
             <p className="text-sm text-gray-500 mb-1">Max Members: {group.maxMembers}</p>
-            <p className="text-sm text-gray-500 font-bold hover:text-red-500 mb-6">Start Date: {group.startDate}</p>
-            <button
-              className="geneva btn btn-soft btn-primary"
-              onClick={() => handleViewMore(group._id)}
-            >
-              View More
-            </button>
+            <p className="text-sm text-gray-500 font-bold hover:text-red-500 mb-6">
+              Start Date: {group.startDate}
+            </p>
+            <div className="mt-auto"> {/* Push button to bottom */}
+              <button
+                className="geneva btn btn-soft btn-primary w-full"
+                onClick={() => handleViewMore(group._id)}
+              >
+                View More
+              </button>
+            </div>
           </div>
         ))}
       </div>
