@@ -6,15 +6,14 @@ import Swal from 'sweetalert2';
 const Navbar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation(); // To track current route
+  const location = useLocation();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
-  const [activeLink, setActiveLink] = useState(''); // To track active link
+  const [activeLink, setActiveLink] = useState('');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     document.body.style.paddingTop = '80px';
-    // Set active link based on initial route
     if (location.pathname === '/') {
       setActiveLink('Home');
     }
@@ -36,7 +35,7 @@ const Navbar = () => {
 
   const handleSectionClick = (e, sectionId, route = '/', text) => {
     e.preventDefault();
-    setActiveLink(text); // Set the clicked link as active
+    setActiveLink(text);
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
@@ -47,7 +46,7 @@ const Navbar = () => {
 
   const handleAuthClick = (e, route, action, text) => {
     e.preventDefault();
-    setActiveLink(text); // Set the clicked link as active
+    setActiveLink(text);
     if (user) {
       navigate(route);
     } else {
@@ -61,7 +60,7 @@ const Navbar = () => {
   };
 
   const handleNavLinkClick = (text) => {
-    setActiveLink(text); // Set the clicked NavLink as active
+    setActiveLink(text);
   };
 
   const links = [
@@ -95,7 +94,11 @@ const Navbar = () => {
       text: 'FAQ',
       onClick: (e) => handleSectionClick(e, 'faq-section', '/', 'FAQ'),
     },
-    { to: '/contact', text: 'Contact' },
+    {
+      href: '#contact-section',
+      text: 'Contact',
+      onClick: (e) => handleSectionClick(e, 'contact-section', '/', 'Contact'),
+    },
   ];
 
   return (
