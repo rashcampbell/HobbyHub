@@ -79,11 +79,11 @@ const MyGroup = () => {
 
   return (
     <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-gray-800">
+      <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6">
         My Groups
       </h1>
       {groups.length === 0 ? (
-        <p className="text-center text-gray-600">No groups found.</p>
+        <p className="text-center">No groups found.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="table w-full bg-white shadow-lg rounded-lg min-w-[600px]">

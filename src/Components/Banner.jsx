@@ -1,17 +1,29 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const Banner = () => {
+  const navigate = useNavigate();
   const backgroundImages = [
     'https://i.postimg.cc/fW0zkGd9/3c056902329c20dbf6d7b6397fa9b8bb.jpg',
     'https://i.postimg.cc/hGNM2QtM/bc0ab5dc3c52b40ddfa075388375703c.jpg', 
     'https://i.postimg.cc/kXrqqQKZ/5992cf620a9fea4eae67708d147c50ce.jpg', 
   ];
+
+  const handleSubscribeClick = (e) => {
+    e.preventDefault();
+    const section = document.getElementById('subscription-services');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/#subscription-services');
+    }
+  };
 
   return (
     <Swiper
@@ -24,12 +36,12 @@ const Banner = () => {
       }}
       pagination={{ clickable: true }}
       navigation
-      className="h-[60vh] w-full" // Set height to 60% of viewport height
+      className="h-[60vh] w-full"
     >
       {backgroundImages.map((image, index) => (
         <SwiperSlide key={index}>
           <div
-            className="hero h-[60vh] w-full" // Consistent height and width for each slide
+            className="hero h-[60vh] w-full"
             style={{
               backgroundImage: `url(${image})`,
               backgroundSize: 'cover',
@@ -77,7 +89,9 @@ const Banner = () => {
                     <span>Award-Winning Group Community</span>
                   </p>
                 </div>
-                <button className="btn btn-primary mt-4">Subscribe Now</button>
+                <button className="btn btn-primary mt-4" onClick={handleSubscribeClick}>
+                  Find Yours Groups
+                </button>
               </div>
             </div>
           </div>

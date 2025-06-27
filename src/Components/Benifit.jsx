@@ -1,5 +1,6 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
+import { useNavigate } from "react-router-dom";
 
 const Benifit = () => {
   const benefits = [
@@ -11,6 +12,17 @@ const Benifit = () => {
     "Award-Winning Group Community",
     "Get support from your community.",
   ];
+
+  const navigate = useNavigate();
+
+  const handleJoinUsClick = () => {
+    const contactSection = document.getElementById("contact-section");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/#contact-section");
+    }
+  };
 
   return (
     <section className="flex flex-col md:flex-row items-center py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-30 bg-gray-100 gap-8">
@@ -59,7 +71,10 @@ const Benifit = () => {
             ))}
           </ul>
 
-          <button className="btn btn-outline btn-info font-bold py-2 px-4 sm:py-3 sm:px-6">
+          <button
+            onClick={handleJoinUsClick}
+            className="btn btn-primary mt-4 font-bold py-2 px-4 sm:py-3 sm:px-6"
+          >
             JOIN US
           </button>
         </Fade>
