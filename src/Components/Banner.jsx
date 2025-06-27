@@ -36,12 +36,12 @@ const Banner = () => {
       }}
       pagination={{ clickable: true }}
       navigation
-      className="h-[60vh] w-full"
+      className="h-[60vh] w-full min-h-[300px] max-h-[600px]"
     >
       {backgroundImages.map((image, index) => (
         <SwiperSlide key={index}>
           <div
-            className="hero h-[60vh] w-full"
+            className="hero w-full h-full"
             style={{
               backgroundImage: `url(${image})`,
               backgroundSize: 'cover',
@@ -49,16 +49,16 @@ const Banner = () => {
             }}
           >
             <div className="hero-overlay bg-opacity-60"></div>
-            <div className="hero-content text-neutral-content text-center">
-              <div>
-                <h1 className="mb-5 text-5xl font-bold">
+            <div className="hero-content text-neutral-content text-center px-4 py-6 md:py-8">
+              <div className="max-w-3xl mx-auto">
+                <h1 className="mb-3 text-3xl sm:text-4xl md:text-5xl font-bold">
                   <span className="text-blue-600">HobbyHub </span> Group Organizer
                 </h1>
-                <p className="mb-4 text-lg font-bold">
+                <p className="mb-4 text-base sm:text-lg font-bold">
                   The Most Complete Social Network is Here!
                 </p>
-                <div className="pl-36 mb-2">
-                  <p className="flex items-center space-x-2 text-white mb-2">
+                <div className="pl-0 sm:pl-10 md:pl-36 mb-2 space-y-2">
+                  <p className="flex items-center justify-center sm:justify-start space-x-2 text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 flex-shrink-0 text-white"
@@ -73,7 +73,7 @@ const Banner = () => {
                     </svg>
                     <span>100% Satisfaction Guarantee</span>
                   </p>
-                  <p className="flex items-center space-x-2 text-white">
+                  <p className="flex items-center justify-center sm:justify-start space-x-2 text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 flex-shrink-0 text-white"
@@ -89,8 +89,11 @@ const Banner = () => {
                     <span>Award-Winning Group Community</span>
                   </p>
                 </div>
-                <button className="btn btn-primary mt-4" onClick={handleSubscribeClick}>
-                  Find Yours Groups
+                <button 
+                  className="btn btn-primary mt-4 px-4 py-2 text-sm sm:text-base" 
+                  onClick={handleSubscribeClick}
+                >
+                  Find Your Groups
                 </button>
               </div>
             </div>
